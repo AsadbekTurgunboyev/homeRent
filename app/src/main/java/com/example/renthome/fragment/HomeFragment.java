@@ -48,6 +48,7 @@ public class HomeFragment extends Fragment {
         iniViews(view);
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("near");
+
         getNearHome();
         return view;
     }

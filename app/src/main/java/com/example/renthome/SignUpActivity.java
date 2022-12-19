@@ -17,6 +17,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
@@ -68,7 +70,25 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
         dialog.show();
-        myRef.addListenerForSingleValueEvent(listener);
+        String key = myRef.push().getKey();
+        LoginModel model = new LoginModel(txtName.getEditText().getText().toString(),txtPass.getEditText().getText().toString(),"",key);
+        myRef.child(key).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(SignUpActivity.this, "Tasdiqlandi", Toast.LENGTH_SHORT).show();
+                    data.saveData(NAME, model.getName());
+                    data.saveData(PASSWORD, model.getPassword());
+                    data.saveData(KEY, key);
+                    data.saveData(ROLE, model.getRole());
+                    dialog.dismiss();
+                    Toast.makeText(SignUpActivity.this, "Ma'lumotlar tasdiqlandi!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                    startActivity(intent);
+                    SignUpActivity.this.finish();
+                }
+            }
+        });
 
 
     }

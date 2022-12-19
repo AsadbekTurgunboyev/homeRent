@@ -6,16 +6,18 @@ public class HomeModel {
     int room_number;
     double space_room;
     double price;
+    String pic;
 
     public HomeModel() {
     }
 
-    public HomeModel(String name, String location, int room_number, double space_room, double price) {
+    public HomeModel(String name, String location, int room_number, double space_room, double price, String pic) {
         this.name = name;
         this.location = location;
         this.room_number = room_number;
         this.space_room = space_room;
         this.price = price;
+        this.pic = pic;
     }
 
     public String getName() {
@@ -56,5 +58,13 @@ public class HomeModel {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 }

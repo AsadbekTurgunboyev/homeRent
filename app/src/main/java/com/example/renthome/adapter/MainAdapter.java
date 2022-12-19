@@ -4,11 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.renthome.HomeModel;
 import com.example.renthome.R;
 
@@ -37,10 +39,10 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
         holder.title.setText(list.get(position).getName());
         holder.location.setText(list.get(position).getLocation());
-        holder.room_number.setText(list.get(position).getRoom_number());
-        holder.square.setText(list.get(position).getSpace_room()+"");
-        holder.price.setText(list.get(position).getPrice()+"");
-
+        holder.room_number.setText(String.valueOf(list.get(position).getRoom_number()));
+        holder.square.setText(String.valueOf(list.get(position).getSpace_room()));
+        holder.price.setText(String.valueOf(list.get(position).getPrice()));
+        Glide.with(context).load(list.get(position).getPic()).into(holder.pic);
     }
 
     @Override
@@ -50,6 +52,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
 
     public class MainViewHolder extends RecyclerView.ViewHolder {
         TextView title, location,room_number,square,price;
+        ImageView pic;
         public MainViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.textView8);
@@ -57,6 +60,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.MainViewHolder
             room_number = itemView.findViewById(R.id.textView11);
             square = itemView.findViewById(R.id.square);
             price = itemView.findViewById(R.id.textView12);
+            pic = itemView.findViewById(R.id.imageView3);
 
 
         }
